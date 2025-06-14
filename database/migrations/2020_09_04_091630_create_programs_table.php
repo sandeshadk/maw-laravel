@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateProgramsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('programs', function (Blueprint $table) {
+             $table->Increments('id');
+            $table->string('title')->nullable();
+            $table->string('slug')->unique();
+            $table->text('sub_description')->nullable();
+            $table->integer('order');
+            $table->boolean('is_primary')->default(0);
+            $table->boolean('is_published')->default(0);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('programs');
+        Schema::enableForeignKeyConstraints();    }
+}
